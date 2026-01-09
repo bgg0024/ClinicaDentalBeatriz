@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica Dental Beatriz · Gestión de citas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <!-- Puedes cambiar esto por una imagen si quieres -->
+      <div class="logo" aria-hidden="true">D</div>
+      <div>
+        <h1>Clínica Dental Beatriz</h1>
+        <p>Control diario de citas</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- FORMULARIO -->
+    <section class="card">
+      <h2>Nueva cita / Modificar cita</h2>
+
+      <!-- Mensaje general de errores -->
+      <div id="formAlert" class="alert" role="alert" hidden></div>
+
+      <form id="citaForm" novalidate>
+        <!-- ID oculto (para editar) -->
+        <input type="hidden" id="citaId" name="citaId" />
+
+        <fieldset class="fieldset">
+          <legend>Fecha de la cita</legend>
+
+          <div class="grid grid-5">
+            <div class="field">
+              <label for="dia">Día</label>
+              <input type="number" id="dia" name="dia" min="1" max="31" placeholder="1-31" required />
+              <small class="error" id="error-dia"></small>
+            </div>
+
+            <div class="field">
+              <label for="mes">Mes</label>
+              <input type="number" id="mes" name="mes" min="1" max="12" placeholder="1-12" required />
+              <small class="error" id="error-mes"></small>
+            </div>
+
+            <div class="field">
+              <label for="anio">Año</label>
+              <input type="number" id="anio" name="anio" min="1900" max="2100" placeholder="2026" required />
+              <small class="error" id="error-anio"></small>
+            </div>
+
+            <div class="field">
+              <label for="hora">Hora</label>
+              <input type="number" id="hora" name="hora" min="0" max="23" placeholder="0-23" required />
+              <small class="error" id="error-hora"></small>
+            </div>
+
+            <div class="field">
+              <label for="minuto">Minuto</label>
+              <input type="number" id="minuto" name="minuto" min="0" max="59" placeholder="0-59" required />
+              <small class="error" id="error-minuto"></small>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend>Datos del paciente</legend>
+
+          <div class="grid grid-2">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Ej. Laura" required />
+              <small class="error" id="error-nombre"></small>
+            </div>
+
+            <div class="field">
+              <label for="apellidos">Apellidos</label>
+              <input type="text" id="apellidos" name="apellidos" placeholder="Ej. Pérez García" required />
+              <small class="error" id="error-apellidos"></small>
+            </div>
+
+            <div class="field">
+              <label for="dni">DNI</label>
+              <input type="text" id="dni" name="dni" placeholder="Ej. 12345678Z" required />
+              <small class="error" id="error-dni"></small>
+            </div>
+
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600123123" required />
+              <small class="error" id="error-telefono"></small>
+            </div>
+
+            <div class="field">
+              <label for="nacimiento">Fecha de nacimiento</label>
+              <input type="date" id="nacimiento" name="nacimiento" required />
+              <small class="error" id="error-nacimiento"></small>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="observaciones">Observaciones</label>
+          <textarea id="observaciones" name="observaciones" rows="3" placeholder="Notas para el odontólogo..."></textarea>
+          <small class="error" id="error-observaciones"></small>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="btnGuardar">Guardar cita</button>
+          <button type="button" class="btn" id="btnCancelar" disabled>Cancelar edición</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- TABLA -->
+    <section class="card">
+      <h2>Citas del día</h2>
+
+      <div class="table-wrap">
+        <table id="tablaCitas" class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Fecha</th>
+              <th>Paciente</th>
+              <th>DNI</th>
+              <th>Teléfono</th>
+              <th>Nacimiento</th>
+              <th>Observaciones</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody id="tbodyCitas">
+            <!-- Fila “dato vacío” (se gestiona en JS) -->
+            <tr id="filaVacia">
+              <td colspan="8" class="empty">dato vacío</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p><strong>Clínica Dental Beatriz</strong> · Tel: 900 000 000 · contacto@clinicadentalbeatriz.com</p>
+    <p>© <span id="year"></span> Clínica Dental Beatriz</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
